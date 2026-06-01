@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Mesto — Работа с сервером
 
 Финальная проектная работа курса. Приложение Mesto подключено к API-серверу.
@@ -36,3 +37,10 @@
 - CSS (без фреймворков)
 - API: [mesto.nomoreparties.co](https://mesto.nomoreparties.co)
 - GitHub Actions для автодеплоя
+=======
+Стартовый набор для выполнения проектной работы Место
+
+Для запуска приложения необходимо использовать live-server
+![изображение live-server](image.png)
+Live-server является расширением VSCode
+>>>>>>> db18633465a58dfa5b0d2918c3d4bbb17a7d4e3b

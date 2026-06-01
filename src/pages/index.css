@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ===== RESET & BASE ===== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -535,3 +536,18 @@ img {
     grid-template-columns: 1fr;
   }
 }
+=======
+@import url('../vendor/normalize.css');
+@import url('../vendor/fonts.css');
+@import url('../blocks/page/page.css');
+@import url('../blocks/header/header.css');
+@import url('../blocks/content/content.css');
+@import url('../blocks/footer/footer.css');
+@import url('../blocks/profile/profile.css');
+@import url('../blocks/places/places.css');
+@import url('../blocks/card/card.css');
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/_is-animated/popup_is-animated.css');
+@import url('../blocks/popup/_is-opened/popup_is-opened.css');
+/*Импортируем на уровень выше*/
+>>>>>>> db18633465a58dfa5b0d2918c3d4bbb17a7d4e3b

@@ -9,6 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
 
     steps:
       - name: Checkout repository
@@ -19,6 +20,18 @@ jobs:
         with:
           node-version: '>=22.12'
           cache: 'npm'
+=======
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: '>=22.12'
+            cache: 'npm'
+>>>>>>> db18633465a58dfa5b0d2918c3d4bbb17a7d4e3b
 
       - name: Install dependencies
         run: npm install
@@ -35,4 +48,8 @@ jobs:
           publish_branch: ${{ secrets.PUBLIC_PAGES_BRANCH || 'main' }}
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
+<<<<<<< HEAD
           commit_message: 'deploy: update build'
+=======
+          commit_message: 'deploy: update build'
+>>>>>>> db18633465a58dfa5b0d2918c3d4bbb17a7d4e3b
