@@ -37,7 +37,7 @@ export const createCard = (
   }
 
   likeButton.addEventListener("click", () => {
-    onLike(cardData, likeButton, likeCount);
+    onLike(cardData, cardElement);
   });
 
   cardImage.addEventListener("click", () => {
@@ -53,4 +53,15 @@ export const createCard = (
   }
 
   return cardElement;
+};
+
+// Обновляет состояние лайка карточки в DOM
+export const updateCardLike = (cardElement, isLiked, likesCount) => {
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const likeCount = cardElement.querySelector(".card__like-count");
+
+  likeButton.classList.toggle("card__like-button_is-active", isLiked);
+  if (likeCount) {
+    likeCount.textContent = likesCount;
+  }
 };

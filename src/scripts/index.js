@@ -1,5 +1,5 @@
 import "../pages/index.css";
-import { createCard } from "./components/card.js";
+import { createCard, updateCardLike } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseByOverlay } from "./components/modal.js";
 import { enableValidation, clearValidation, disableSubmitButton } from "./components/validation.js";
 import {
@@ -99,14 +99,13 @@ const formatDate = (date) =>
 
 // ==================== КАРТОЧКИ ====================
 
-const handleLike = (cardData, likeButton, likeCount) => {
+const handleLike = (cardData, cardElement) => {
+  const likeButton = cardElement.querySelector(".card__like-button");
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
   changeLikeCardStatus(cardData._id, isLiked)
     .then((updatedCard) => {
-      likeButton.classList.toggle("card__like-button_is-active");
-      if (likeCount) {
-        likeCount.textContent = updatedCard.likes.length;
-      }
+      const liked = updatedCard.likes.some((user) => user._id === currentUserId);
+      updateCardLike(cardElement, liked, updatedCard.likes.length);
     })
     .catch((err) => console.log(err));
 };
@@ -254,8 +253,8 @@ const createUserPreview = (user) => {
   const template = document.querySelector("#popup-info-user-preview-template");
   if (!template) return null;
   const item = template.content.cloneNode(true);
-  const img = item.querySelector(".popup-info__user-avatar");
-  const name = item.querySelector(".popup-info__user-name");
+  const img = item.querySelector(".popup__user-avatar");
+  const name = item.querySelector(".popup__user-name");
   if (img) {
     img.src = user.avatar;
     img.alt = user.name;

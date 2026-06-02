@@ -527,3 +527,17 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+.popup__user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.popup__user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-black);
+}
