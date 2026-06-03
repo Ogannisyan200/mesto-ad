@@ -299,6 +299,16 @@ img {
   max-width: 75vw;
 }
 
+.popup__container_type_confirm {
+  overflow-x: visible;
+  overflow-y: visible;
+}
+
+.popup__button_type_confirm {
+  width: 100%;
+  display: block;
+}
+
 .popup__close {
   position: absolute;
   top: -40px;
@@ -309,7 +319,7 @@ img {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  filter: invert(1);
+  /* filter: invert(1); */
   transition: opacity var(--transition);
 }
 

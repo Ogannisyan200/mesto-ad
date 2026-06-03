@@ -1,5 +1,5 @@
 import "../pages/index.css";
-import { createCard, updateCardLike } from "./components/card.js";
+import { createCard, updateCardLike, removeCard } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseByOverlay } from "./components/modal.js";
 import { enableValidation, clearValidation, disableSubmitButton } from "./components/validation.js";
 import {
@@ -68,7 +68,7 @@ const cardsContainer = document.querySelector(".places__list");
 
 // Кнопки подтверждения удаления
 const deleteConfirmButton = deleteCardModal
-  ? deleteCardModal.querySelector(".popup__button")
+  ? deleteCardModal.querySelector(".popup__button_type_confirm")
   : null;
 
 // Элементы статистики пользователей
@@ -99,9 +99,7 @@ const formatDate = (date) =>
 
 // ==================== КАРТОЧКИ ====================
 
-const handleLike = (cardData, cardElement) => {
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const isLiked = likeButton.classList.contains("card__like-button_is-active");
+const handleLike = (cardData, cardElement, isLiked) => {
   changeLikeCardStatus(cardData._id, isLiked)
     .then((updatedCard) => {
       const liked = updatedCard.likes.some((user) => user._id === currentUserId);
@@ -146,13 +144,12 @@ const renderCards = (cards) => {
 // ==================== УДАЛЕНИЕ КАРТОЧКИ ====================
 
 if (deleteConfirmButton) {
-  deleteCardModal.querySelector(".popup__form").addEventListener("submit", (evt) => {
-    evt.preventDefault();
+  deleteConfirmButton.addEventListener("click", () => {
     const button = deleteConfirmButton;
     button.textContent = "Удаление…";
     deleteCard(cardToDelete)
       .then(() => {
-        cardElementToDelete.remove();
+        removeCard(cardElementToDelete);
         closeModalWindow(deleteCardModal);
         cardToDelete = null;
         cardElementToDelete = null;
@@ -253,8 +250,8 @@ const createUserPreview = (user) => {
   const template = document.querySelector("#popup-info-user-preview-template");
   if (!template) return null;
   const item = template.content.cloneNode(true);
-  const img = item.querySelector(".popup__user-avatar");
-  const name = item.querySelector(".popup__user-name");
+  const img = item.querySelector(".popup-info__user-avatar");
+  const name = item.querySelector(".popup-info__user-name");
   if (img) {
     img.src = user.avatar;
     img.alt = user.name;
