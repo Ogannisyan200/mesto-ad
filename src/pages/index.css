@@ -467,19 +467,31 @@ img {
 
 .popup__users-list {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.popup__users-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 16px;
+  margin-bottom: 4px;
 }
 
 .popup-info__user-item {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 20px;
+  padding: 4px 10px 4px 4px;
 }
 
 .popup-info__user-avatar {
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;

@@ -265,30 +265,28 @@ const handleLogoClick = () => {
 
   getCardList()
     .then((cards) => {
+      // Все уникальные авторы (нужны в обоих блоках)
+      const authorsMap = {};
+      cards.forEach((card) => {
+        if (!authorsMap[card.owner._id]) {
+          authorsMap[card.owner._id] = { user: card.owner, count: 0 };
+        }
+        authorsMap[card.owner._id].count++;
+      });
+      const authors = Object.values(authorsMap);
+      const topAuthor = [...authors].sort((a, b) => b.count - a.count)[0];
+
       if (usersStatsModalInfoList) {
         usersStatsModalInfoList.innerHTML = "";
 
         const totalCards = cards.length;
-        const totalLikes = cards.reduce((sum, card) => sum + card.likes.length, 0);
 
-        // Все уникальные авторы
-        const authorsMap = {};
-        cards.forEach((card) => {
-          if (!authorsMap[card.owner._id]) {
-            authorsMap[card.owner._id] = { user: card.owner, count: 0 };
-          }
-          authorsMap[card.owner._id].count++;
-        });
-        const authors = Object.values(authorsMap);
-        const topAuthor = authors.sort((a, b) => b.count - a.count)[0];
-
+        // 1. Всего карточек
         usersStatsModalInfoList.append(
           createInfoString("Всего карточек:", totalCards)
         );
-        usersStatsModalInfoList.append(
-          createInfoString("Всего лайков:", totalLikes)
-        );
 
+        // 2. Первая создана
         if (cards.length > 0) {
           usersStatsModalInfoList.append(
             createInfoString(
@@ -296,6 +294,8 @@ const handleLogoClick = () => {
               formatDate(new Date(cards[cards.length - 1].createdAt))
             )
           );
+
+          // 3. Последняя создана
           usersStatsModalInfoList.append(
             createInfoString(
               "Последняя создана:",
@@ -304,30 +304,23 @@ const handleLogoClick = () => {
           );
         }
 
+        // 4. Всего пользователей
+        usersStatsModalInfoList.append(
+          createInfoString("Всего пользователей:", authors.length)
+        );
+
+        // 5. Максимум карточек от одного
         if (topAuthor) {
           usersStatsModalInfoList.append(
-            createInfoString("Самый активный автор:", `${topAuthor.user.name} (${topAuthor.count} карт.)`)
+            createInfoString("Максимум карточек от одного:", topAuthor.count)
           );
         }
       }
 
-      // Топ пользователей по лайкам
+      // Все пользователи
       if (usersStatsModalUsersList) {
         usersStatsModalUsersList.innerHTML = "";
-        const likersMap = {};
-        cards.forEach((card) => {
-          card.likes.forEach((liker) => {
-            if (!likersMap[liker._id]) {
-              likersMap[liker._id] = { user: liker, count: 0 };
-            }
-            likersMap[liker._id].count++;
-          });
-        });
-        const topLikers = Object.values(likersMap)
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 5);
-
-        topLikers.forEach(({ user }) => {
+        authors.forEach(({ user }) => {
           const preview = createUserPreview(user);
           if (preview) usersStatsModalUsersList.append(preview);
         });
